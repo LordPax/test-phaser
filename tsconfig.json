@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "module": "esnext",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "declaration": true,
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "outDir": "build/",
+        "target": "esnext",
+        "strict": false
+    },
+    "include": [
+        "src/main.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "build"
+    ],
+    "typeRoots": [
+        "./node_modules/phaser/types"
+    ],
+    "types": [
+        "Phaser"
+    ]
+}

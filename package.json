@@ -1,0 +1,27 @@
+{
+  "name": "test-phazer",
+  "version": "1.0.0",
+  "description": "test du framework phazer",
+  "main": "build/main.js",
+  "scripts": {
+    "start": "npx parcel default.htm -p 8080",
+    "build": "./compileTS.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LordPax/test-phaser.git"
+  },
+  "author": "LordPax",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LordPax/test-phaser/issues"
+  },
+  "homepage": "https://github.com/LordPax/test-phaser#readme",
+  "devDependencies": {
+    "parcel": "*",
+    "typescript": "^4.3.4"
+  },
+  "dependencies": {
+    "phaser": "^3.55.2"
+  }
+}
