@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 type ImageWithDynamicBody = Phaser.Types.Physics.Arcade.ImageWithDynamicBody
+type ImageWithStaticBody = Phaser.Types.Physics.Arcade.ImageWithStaticBody
 type SpriteWithDynamicBody = Phaser.Types.Physics.Arcade.SpriteWithDynamicBody
 type ParticuleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterManager
 type ParticuleEmitter = Phaser.GameObjects.Particles.ParticleEmitter
@@ -18,6 +19,7 @@ export class SimpleGame extends Phaser.Scene {
     public static distVis: number = 100
     public static velBall: number = 1000
     private vis: Graphics
+    private platform: ImageWithStaticBody[]
 
     constructor() {
         super({ key: 'game' })
@@ -30,6 +32,7 @@ export class SimpleGame extends Phaser.Scene {
         this.load.image('sky', 'assets/images/space3.png')
         this.load.image('logo', 'assets/images/phaser3-logo.png')
         this.load.image('red', 'assets/images/red.png')
+        this.load.image('platform', 'assets/images/platform.png')
         this.load.spritesheet('perso', 'assets/images/perso_sprite.png', {
             frameHeight : 130,
             frameWidth : 120
@@ -40,6 +43,12 @@ export class SimpleGame extends Phaser.Scene {
     public create(): void {
         // let balls: ImageWithDynamicBody[] = []
         const sky: Image = this.add.image(400, 300, 'sky')
+
+        this.platform = [
+            this.physics.add.staticImage(200, 480, 'platform'),
+            this.physics.add.staticImage(400, 380, 'platform'),
+            this.physics.add.staticImage(600, 480, 'platform')
+        ]
 
         this.input.keyboard.on('keydown-SPACE', (event:any) => {
             const { vx, vy } = this.convAngle(this.angle)
@@ -113,6 +122,8 @@ export class SimpleGame extends Phaser.Scene {
     public update(time: number, delta: number): void {
         this.vis.clear()
 
+        this.physics.world.collide(this.perso, this.platform)
+
         const keyZ: Key = this.input.keyboard.addKey('Z')
         const keyQ: Key = this.input.keyboard.addKey('Q')
         const keyD: Key = this.input.keyboard.addKey('D')
@@ -122,7 +133,7 @@ export class SimpleGame extends Phaser.Scene {
         this.vis.fillCircle(this.perso.x + SimpleGame.distVis * vx, this.perso.y + SimpleGame.distVis * vy, 5)
 
         if (keyZ.isDown && this.perso.body.velocity.y === 0) 
-            this.perso.setVelocityY(-500)
+            this.perso.setVelocityY(-600)
         if (keyQ.isDown) 
             this.perso.setVelocityX(-200)
         if (keyD.isDown) 
